@@ -1,0 +1,6 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/Devel-Trace-More.t
+lib/Devel/Trace/More.pm

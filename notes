@@ -1,0 +1,12 @@
+x have is_interesting taking in all 'caller' info plus the line of code itself
+x changes to filter_on routine
+x * check if input is regexp ref, scalar, or code ref at beginning
+x * give better var names
+x try to get the line of code if checking in a .pl instead of a module - see what $f is and what's in main
+x if $code->[$l] returns 0 then ternary check will incorrectly fail
+Add variable watching
+* use padwalker
+* make it so watch vars and print when changes
+* allow printing to a file
+* allow export to csv
+* have the ability take the stack trace and return a graphviz diagram of the calls
