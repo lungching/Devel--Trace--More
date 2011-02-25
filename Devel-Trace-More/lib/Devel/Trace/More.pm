@@ -6,12 +6,13 @@ use warnings;
 use Exporter;
 
 use base 'Exporter';
-our @EXPORT_OK = qw{ trace filter_on };
+our @EXPORT_OK = qw{ trace filter_on output_to };
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 our $IS_INTERESTING = sub { return 1; };
 our $TRACE = 1;
+our $OUT = *STDERR;
 
 # This is the important part.  The rest is just fluff.
 sub DB::DB {
@@ -25,7 +26,7 @@ sub DB::DB {
     my $code_line = defined($code->[$l]) ? $code->[$l] : '';
     chomp($code_line);
   
-    print STDERR ">> $f:$l: $code_line\n" if $IS_INTERESTING->($p, $f, $l, $code_line);
+    print $OUT ">> $f:$l: $code_line\n" if $IS_INTERESTING->($p, $f, $l, $code_line);
 }
 
 sub filter_on {
@@ -50,6 +51,14 @@ sub trace {
     my $arg = shift;
     $arg = $tracearg{$arg} while exists $tracearg{$arg};
     $TRACE = $arg;
+}
+
+sub output_to {
+    my $filename = shift;
+    my $mode     = shift || '>';
+
+    die "Can't use mode $mode for sending tracing output!" if $mode =~ /[+<]/;
+    open $OUT, $mode, $filename or die "Can't open file $filename : $!";
 }
 
 1;
