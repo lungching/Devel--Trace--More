@@ -135,6 +135,8 @@ sub trace {
 
 Given a filename the code lines will get printed to the file instead of STDERR.
 Can be called with different filenames at different points in the script if need be.
+By default the file will be open for reading and will be either created or cleared.
+You can input '>>' as a param to have the trace keep appending.
 
 =cut
 

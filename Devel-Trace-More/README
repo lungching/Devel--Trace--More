@@ -4,13 +4,17 @@ NAME
 SYNOPSIS
       #!/usr/bin/perl -d:Trace::More
 
-      use Devel::Trace::More qw{ filter_on };
+      use Devel::Trace::More qw{ filter_on output_to };
       
   filter_on('blah');
 
       # or
 
-      filter_on(qr/blah/);
+  filter_on(qr/blah/);
+
+      To print to a file:
+
+  output_to('path/to/file')
 
 DESCRIPTION
     For now look at documentation for Devel::Trace. More features to come!

@@ -11,3 +11,7 @@ Revision history for Perl extension Devel::Trace::More.
 
 0.02 Sun Apr 04 12:56:12 2010
     * Removed Perl 5.10 requirement for Makefile.pl
+
+0.03 Tue Mar 08 9:17:32 2011
+    * Added function to control where the output of the trace goes to - STDERR by default or a file
+
