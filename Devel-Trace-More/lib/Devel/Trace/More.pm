@@ -7,7 +7,7 @@ Devel::Trace::More - Like Devel::Trace but with more control
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =head1 SYNOPSIS
 
@@ -55,7 +55,7 @@ use Exporter;
 use base 'Exporter';
 our @EXPORT_OK = qw{ trace filter_on output_to };
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 our $IS_INTERESTING = sub { return 1; };
 our $TRACE = 1;
@@ -143,6 +143,10 @@ You can input '>>' as a param to have the trace keep appending.
 sub output_to {
     my $filename = shift;
     my $mode     = shift || '>';
+
+    # There can be cases where STDOUT/STDERR messed with in the code
+    # which will cause problems if $OUT isn't cleared first
+    $OUT = undef;
 
     open $OUT, $mode, $filename or die "Can't open file $filename : $!";
 }

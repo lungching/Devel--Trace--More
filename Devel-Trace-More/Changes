@@ -15,3 +15,5 @@ Revision history for Perl extension Devel::Trace::More.
 0.03 Tue Mar 08 9:17:32 2011
     * Added function to control where the output of the trace goes to - STDERR by default or a file
 
+0.04 Mon Mar 29 5:22:45 2011
+    * When outputting to a file clear the filehandle first
