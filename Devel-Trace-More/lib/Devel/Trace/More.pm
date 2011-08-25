@@ -7,7 +7,7 @@ Devel::Trace::More - Like Devel::Trace but with more control
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =head1 SYNOPSIS
 
@@ -55,7 +55,7 @@ use Exporter;
 use base 'Exporter';
 our @EXPORT_OK = qw{ trace filter_on output_to };
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 our $IS_INTERESTING = sub { return 1; };
 our $TRACE = 1;
@@ -73,7 +73,7 @@ sub DB::DB {
     my $code_line = defined($code->[$l]) ? $code->[$l] : '';
     chomp($code_line);
   
-    print $OUT ">> $f:$l: $code_line\n" if $IS_INTERESTING->($p, $f, $l, $code_line);
+    print $OUT ">> $f:$l: $code_line\n" if $OUT && $IS_INTERESTING->($p, $f, $l, $code_line);
 }
 
 =head1 FUNCTIONS
@@ -141,6 +141,9 @@ You can input '>>' as a param to have the trace keep appending.
 =cut
 
 sub output_to {
+    # have to turn trace off because messing with filehandles while
+    # it's tracing itself might cause it to die
+    trace('off');
     my $filename = shift;
     my $mode     = shift || '>';
 
@@ -149,6 +152,7 @@ sub output_to {
     $OUT = undef;
 
     open $OUT, $mode, $filename or die "Can't open file $filename : $!";
+    trace('on');
 }
 
 1;
